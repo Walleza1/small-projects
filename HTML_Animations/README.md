@@ -30,3 +30,8 @@ Implementation of easy canvas animation/game
 The Snake game. Use arrow for moving, space for pause. 
   
   You lose if you touch the border, or if you step on your tail.
+
+## Space Invaders
+
+Funny game. Drawing aliens and spaceship.
+Shooting and killing aliens ( no racism )

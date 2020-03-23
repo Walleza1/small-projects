@@ -1,45 +1,42 @@
 #!/bin/bash
 
-nom_projet=$1
+nom_projet="$1"
 
-mkdir $1
+mkdir -p "${nom_projet}"
 
-index="
-<!DOCTYPE html>\n
-<html lang='fr'>\n
-<head>\n
-    <meta charset='utf-8'>\n
-    <title>Animation</title>\n
-</head>\n
-\n
-<body>\n
-    <canvas id='toile' width='500' height='500'></canvas>\n
-</body>\n
-<script src='$1.js'></script>\n
-</html>"
-echo $index > $1/index.html
+cat > "${nom_projet}/index.html" << EOF
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='utf-8'>
+    <title>Animation</title>
+</head>
 
+<body>
+    <canvas id='toile' width='500' height='500'></canvas>
+</body>
+<script src='${nom_projet}.js'></script>
+</html>
+EOF
 
-js_init="
-var canvas,ctx;\n
-var carre_size_px;\n
-var CARRE=10;\n
-\n
-function init(){\n
-    canvas=document.getElementById('toile');\n
-    ctx=canvas.getContext('2d');\n
-    carre_size_px=CARRE;\n
-    canvas.width=document.body.clientWidth;\n
-}\n
-\n
-function move(){\n
-    ctx.clearRect(0,0,canvas.width,canvas.height);\n
-    window.requestAnimationFrame(move);\n
-}\n
-\n
-(function(){\n
-	init();\n
-    window.requestAnimationFrame(move);\n
-})();\n
-"
-echo $js_init > $1/$1".js"
+cat > "${nom_projet}/${nom_projet}.js" << EOF
+var canvas,ctx;
+var carre_size_px;
+var CARRE=10;
+
+function init(){
+    canvas=document.getElementById('toile');
+    ctx=canvas.getContext('2d');
+    carre_size_px=CARRE;
+    canvas.width=document.body.clientWidth;
+}
+function move(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    window.requestAnimationFrame(move);
+}
+
+(function(){
+	init();
+    window.requestAnimationFrame(move);
+})();
+EOF
